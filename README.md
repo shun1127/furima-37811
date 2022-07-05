@@ -1,24 +1,55 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# テーブル設計
 
-Things you may want to cover:
+## users テーブル
 
-* Ruby version
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| email              | string | null: false, unique  |
+| password           | string | null: false |
+| name               | string | null: false |
 
-* System dependencies
+### アソシエーション
 
-* Configuration
+has_many :products
+has_one :address
+has_many :order_details 
 
-* Database creation
+## products テーブル
 
-* Database initialization
+| Column             | Type       | Options     |
+| ------------------ | ---------- | ----------- |
+| image              | text       | null: false |
+| name               | string     | null: false |
+| text               | text       |  |
+| price              | string     | null: false |
+| user_id            | references | null: false foreign_key: true |
 
-* How to run the test suite
+### アソシエーション
+has_many :order_details
+has_one :users
 
-* Services (job queues, cache servers, search engines, etc.)
+## order_details テーブル
 
-* Deployment instructions
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| user_id            | references | foreign_key: true |
+| order              | references | foreign_key: true |
 
-* ...
+### アソシエーション
+belongs_to :user
+has_many :products
+belongs_to :address
+
+## addresses テーブル
+
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| user_id            | references | null: false foreign_key: true |
+| address            | string     | null: false |
+| name               | string     | null: false |
+
+### アソシエーション
+belongs_to :user
+has_one :order
