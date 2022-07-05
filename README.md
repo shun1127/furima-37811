@@ -53,3 +53,5 @@ belongs_to :address
 ### アソシエーション
 belongs_to :user
 has_one :order
+
+aaa
