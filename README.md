@@ -6,50 +6,61 @@
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| email              | string | null: false, unique  |
-| password           | string | null: false |
+| email              | string | null: false, unique: true  |
+| encrypted_password | string | null: false |
 | name               | string | null: false |
+| first_name         | string | null: false |
+| last_name          | string | null: false |
+| first_kana         | string | null: false |
+| last_kana          | string | null: false |
+| birthday           | date | null: false |
 
 ### アソシエーション
 
 has_many :products
-has_one :address
 has_many :order_details 
 
 ## products テーブル
 
 | Column             | Type       | Options     |
 | ------------------ | ---------- | ----------- |
-| image              | text       | null: false |
 | name               | string     | null: false |
-| text               | text       |  |
-| price              | string     | null: false |
-| user_id            | references | null: false foreign_key: true |
+| content            | text       | null: false |
+| category_id        | integer    | null: false |
+| state_id           | integer    | null: false |
+| delivery_charge_id | integer    | null: false |
+| delivery_area_id   | integer    | null: false |
+| delivery_day_id    | integer    | null: false |
+| price              | integer    | null: false |
+| user               | references | null: false foreign_key: true |
 
 ### アソシエーション
-has_many :order_details
-has_one :users
+has_one :order_detail
+belongs_to :user
 
 ## order_details テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| user_id            | references | foreign_key: true |
-| order              | references | foreign_key: true |
+| Column             | Type       | Options           |
+| ------------------ | ---------- | ----------------- |
+| user               | references | foreign_key: true |
+| product            | references | foreign_key: true |
 
 ### アソシエーション
 belongs_to :user
-has_many :products
-belongs_to :address
+belongs_to :product
+has_one :address
 
 ## addresses テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| user_id            | references | null: false foreign_key: true |
-| address            | string     | null: false |
-| name               | string     | null: false |
+| Column             | Type       | Options     |
+| ------------------ | ---------- | ----------- |
+| address            | references | null: false foreign_key: true |
+| post_code          | string     | null: false |
+| delivery_area_id   | integer    | null: false |
+| city               | string     | null: false |
+| address_one        | string     | null: false |
+| address_two        | string     | |
+| phone_number       | string     | null: false |
 
 ### アソシエーション
-belongs_to :user
-has_one :order
+belongs_to :order_detail
