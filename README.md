@@ -18,7 +18,6 @@
 ### アソシエーション
 
 has_many :products
-has_one :address
 has_one :order_details 
 
 ## products テーブル
@@ -26,43 +25,42 @@ has_one :order_details
 | Column             | Type       | Options     |
 | ------------------ | ---------- | ----------- |
 | name               | string     | null: false |
-| content            | text       |  |
+| content            | text       | null: false |
 | category_id        | integer    | null: false |
 | state_id           | integer    | null: false |
 | delivery_charge_id | integer    | null: false |
 | delivery_area_id   | integer    | null: false |
-| delivery_days_id   | integer    | null: false |
+| delivery_day_id    | integer    | null: false |
 | price              | integer    | null: false |
 | user               | references | null: false foreign_key: true |
 
 ### アソシエーション
-has_many :order_details
-has_one :users
+has_one :order_details
+belongs_to :users
 
 ## order_details テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
+| Column             | Type       | Options           |
+| ------------------ | ---------- | ----------------- |
 | user               | references | foreign_key: true |
 | product            | references | foreign_key: true |
 
 ### アソシエーション
-belongs_to :user
-has_many :products
-has_one :address
+belongs_to :users
+has_one :products
+has_one :addresses
 
 ## addresses テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| user               | references | null: false |
+| Column             | Type       | Options     |
+| ------------------ | ---------- | ----------- |
+| address            | references | null: false foreign_key: true |
 | post_code          | string     | null: false |
-| delivery_area_id | integer | null: false |
+| delivery_area_id   | integer    | null: false |
 | city               | string     | null: false |
 | address_one        | string     | null: false |
 | address_two        | string     | |
 | phone_number       | string     | null: false |
 
 ### アソシエーション
-has_one :user
-has_one :order
+belongs_to :order_details
