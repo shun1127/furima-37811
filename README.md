@@ -18,7 +18,7 @@
 ### アソシエーション
 
 has_many :products
-has_one :order_details 
+has_many :order_details 
 
 ## products テーブル
 
@@ -35,8 +35,8 @@ has_one :order_details
 | user               | references | null: false foreign_key: true |
 
 ### アソシエーション
-has_one :order_details
-belongs_to :users
+has_one :order_detail
+belongs_to :user
 
 ## order_details テーブル
 
@@ -46,9 +46,9 @@ belongs_to :users
 | product            | references | foreign_key: true |
 
 ### アソシエーション
-belongs_to :users
-has_one :products
-has_one :addresses
+belongs_to :user
+belongs_to :product
+has_one :address
 
 ## addresses テーブル
 
@@ -63,4 +63,4 @@ has_one :addresses
 | phone_number       | string     | null: false |
 
 ### アソシエーション
-belongs_to :order_details
+belongs_to :order_detail
