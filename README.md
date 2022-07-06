@@ -7,34 +7,32 @@
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
 | email              | string | null: false, unique: true  |
-| password           | string | null: false |
 | encrypted_password | string | null: false |
 | name               | string | null: false |
 | first_name         | string | null: false |
 | last_name          | string | null: false |
 | first_kana         | string | null: false |
 | last_kana          | string | null: false |
-| birthday           | string | null: false |
+| birthday           | date | null: false |
 
 ### アソシエーション
 
 has_many :products
 has_one :address
-has_many :order_details 
+has_one :order_details 
 
 ## products テーブル
 
 | Column             | Type       | Options     |
 | ------------------ | ---------- | ----------- |
-| image              | text       | null: false |
 | name               | string     | null: false |
-| text               | text       |  |
-| Category           | string     | null: false |
-| state              | string     | null: false |
-| delivery_charge    | string     | null: false |
-| delivery_area      | string     | null: false |
-| delivery_days      | string     | null: false |
-| price              | string     | null: false |
+| content            | text       |  |
+| category_id        | integer    | null: false |
+| state_id           | integer    | null: false |
+| delivery_charge_id | integer    | null: false |
+| delivery_area_id   | integer    | null: false |
+| delivery_days_id   | integer    | null: false |
+| price              | integer    | null: false |
 | user               | references | null: false foreign_key: true |
 
 ### アソシエーション
@@ -51,22 +49,20 @@ has_one :users
 ### アソシエーション
 belongs_to :user
 has_many :products
-belongs_to :address
+has_one :address
 
 ## addresses テーブル
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| user               | references | null: false foreign_key: true |
-| address            | string     | null: false |
+| user               | references | null: false |
 | post_code          | string     | null: false |
-| name               | string     | null: false |
-| province           | string     | null: false |
+| delivery_area_id | integer | null: false |
 | city               | string     | null: false |
 | address_one        | string     | null: false |
-| address_two        | string     | null: false |
+| address_two        | string     | |
 | phone_number       | string     | null: false |
 
 ### アソシエーション
-belongs_to :user
+has_one :user
 has_one :order
