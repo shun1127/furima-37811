@@ -6,9 +6,15 @@
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| email              | string | null: false, unique  |
+| email              | string | null: false, unique: true  |
 | password           | string | null: false |
+| encrypted_password | string | null: false |
 | name               | string | null: false |
+| first_name         | string | null: false |
+| last_name          | string | null: false |
+| first_kana         | string | null: false |
+| last_kana          | string | null: false |
+| birthday           | string | null: false |
 
 ### アソシエーション
 
@@ -23,8 +29,13 @@ has_many :order_details
 | image              | text       | null: false |
 | name               | string     | null: false |
 | text               | text       |  |
+| Category           | string     | null: false |
+| state              | string     | null: false |
+| delivery_charge    | string     | null: false |
+| delivery_area      | string     | null: false |
+| delivery_days      | string     | null: false |
 | price              | string     | null: false |
-| user_id            | references | null: false foreign_key: true |
+| user               | references | null: false foreign_key: true |
 
 ### アソシエーション
 has_many :order_details
@@ -34,8 +45,8 @@ has_one :users
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| user_id            | references | foreign_key: true |
-| order              | references | foreign_key: true |
+| user               | references | foreign_key: true |
+| product            | references | foreign_key: true |
 
 ### アソシエーション
 belongs_to :user
@@ -46,12 +57,16 @@ belongs_to :address
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| user_id            | references | null: false foreign_key: true |
+| user               | references | null: false foreign_key: true |
 | address            | string     | null: false |
+| post_code          | string     | null: false |
 | name               | string     | null: false |
+| province           | string     | null: false |
+| city               | string     | null: false |
+| address_one        | string     | null: false |
+| address_two        | string     | null: false |
+| phone_number       | string     | null: false |
 
 ### アソシエーション
 belongs_to :user
 has_one :order
-
-aaa
