@@ -20,7 +20,7 @@
 has_many :products
 has_many :order_details 
 
-## products テーブル
+## items テーブル
 
 | Column             | Type       | Options     |
 | ------------------ | ---------- | ----------- |
