@@ -39,7 +39,6 @@ has_one :order_detail
 belongs_to :user
 
 ## order_details テーブル
-
 | Column             | Type       | Options           |
 | ------------------ | ---------- | ----------------- |
 | user               | references | foreign_key: true |
