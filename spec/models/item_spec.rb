@@ -33,8 +33,18 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Category can't be blank")
      end
+     it "カテゴリーに「---」が選択されている場合は出品できない" do
+      @item.category_id = '1'
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Category can't be blank")
+     end
      it "state_idが空では登録できない" do
       @item.state_id = ''
+      @item.valid?
+      expect(@item.errors.full_messages).to include("State can't be blank")
+     end
+     it "商品の状態に「---」が選択されている場合は出品できない" do
+      @item.state_id = '1'
       @item.valid?
       expect(@item.errors.full_messages).to include("State can't be blank")
      end
@@ -43,13 +53,28 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Delivery charge can't be blank")
      end
+     it "配送料の負担に「---」が選択されている場合は出品できない" do
+      @item.delivery_charge_id = '1'
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Delivery charge can't be blank")
+     end
      it "delivary_area_idが空では登録できない" do
       @item.delivery_area_id = ''
       @item.valid?
       expect(@item.errors.full_messages).to include("Delivery area can't be blank")
      end
+     it "発送元の地域に「---」が選択されている場合は出品できない" do
+      @item.delivery_area_id = '1'
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Delivery area can't be blank")
+     end
      it "delivary_dayが空では登録できない" do
       @item.delivery_day_id = ''
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Delivery day can't be blank")
+     end
+     it "発送までの日数に「---」が選択されている場合は出品できない" do
+      @item.delivery_day_id = '1'
       @item.valid?
       expect(@item.errors.full_messages).to include("Delivery day can't be blank")
      end
