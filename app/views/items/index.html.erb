@@ -126,6 +126,7 @@
     <div class="subtitle" >
       新規投稿商品
     </div>
+    <% if @items.present? %>
      <ul class='item-lists'>
       <% @items.each do |item| %>
        <li class='list'>
@@ -153,6 +154,7 @@
       </li>
       <% end %>
 
+      <% else %>
       <li class='list'>
         <%= link_to '#' do %>
         <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
@@ -170,8 +172,10 @@
         </div>
         <% end %>
       </li>
+      <% end %>
     </ul>
   </div>
+
   <%# /商品一覧 %>
 </div>
 <%= link_to('/items/new', class: 'purchase-btn') do %>
