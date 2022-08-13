@@ -17,7 +17,7 @@
 
 ### アソシエーション
 
-has_many :items
+has_many :products
 has_many :order_details 
 
 ## items テーブル
@@ -42,18 +42,18 @@ belongs_to :user
 | Column             | Type       | Options           |
 | ------------------ | ---------- | ----------------- |
 | user               | references | foreign_key: true |
-| item               | references | foreign_key: true |
+| product            | references | foreign_key: true |
 
 ### アソシエーション
 belongs_to :user
-belongs_to :item
+belongs_to :product
 has_one :address
 
 ## addresses テーブル
 
 | Column             | Type       | Options     |
 | ------------------ | ---------- | ----------- |
-| order_detail       | references | null: false foreign_key: true |
+| address            | references | null: false foreign_key: true |
 | post_code          | string     | null: false |
 | delivery_area_id   | integer    | null: false |
 | city               | string     | null: false |
