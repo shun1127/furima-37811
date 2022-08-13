@@ -7,7 +7,7 @@ RSpec.describe OrderDetailAddress, type: :model do
 
   describe "配送先情報の登録" do
     context '配送先情報の登録ができる時' do
-     it "全ての値が正しく存在すれば出品できる" do
+     it "post_code,delivery_area_id,city,address_one,phone_numberが存在すれば出品できる" do
       expect(@order_detail_address).to be_valid
      end
     end
@@ -48,11 +48,6 @@ RSpec.describe OrderDetailAddress, type: :model do
       @order_detail_address.valid?
       expect(@order_detail_address.errors.full_messages).to include("Phone number is invalid")
      end
-     it 'トークンが空だと保存できないこと' do
-      @order_detail_address.token = nil
-      @order_detail_address.valid?
-      expect(@order_detail_address.errors.full_messages).to include("Token can't be blank")
-    end
     end 
   end
 end

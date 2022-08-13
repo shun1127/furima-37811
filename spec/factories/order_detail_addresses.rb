@@ -8,6 +8,5 @@ FactoryBot.define do
       address_one {"青山1-1-1"}
       address_two{"ビル"}
       phone_number{"09011111111"}
-      token {"tok_abcdefghijk00000000000000000"}
   end
 end
