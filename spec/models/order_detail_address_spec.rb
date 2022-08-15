@@ -27,9 +27,9 @@ RSpec.describe OrderDetailAddress, type: :model do
         expect(@order_detail_address.errors.full_messages).to include("Item can't be blank")
        end
      it "post_codeが空では登録できない" do
-      @order_detail_address.post_code = nil
+      @order_detail_address.post_code = ''
       @order_detail_address.valid?
-      expect(@order_detail_address.errors.full_messages).to include("Post code can't be blank", "Post code is invalid. Include hyphen(-)")
+      expect(@order_detail_address.errors.full_messages).to include("Post code can't be blank")
      end
      it "delivery_area_idが「---」では登録できない" do
       @order_detail_address.delivery_area_id = '1'
@@ -51,6 +51,11 @@ RSpec.describe OrderDetailAddress, type: :model do
       @order_detail_address.valid?
       expect(@order_detail_address.errors.full_messages).to include("Phone number is invalid")
      end
+     it "phone_numberは12桁以上では登録できない" do
+      @order_detail_address.phone_number = '1234567890123'
+      @order_detail_address.valid?
+      expect(@order_detail_address.errors.full_messages).to include("Phone number is invalid")
+     end
      it "phone_numberが英数字以外が含まれている場合は購入できない" do
       @order_detail_address.phone_number = 'a012'
       @order_detail_address.valid?
@@ -60,11 +65,6 @@ RSpec.describe OrderDetailAddress, type: :model do
       @order_detail_address.phone_number = ''
       @order_detail_address.valid?
       expect(@order_detail_address.errors.full_messages).to include("Phone number can't be blank")
-     end
-     it "phone_numberは10桁以上11桁以内の半角数値以外では登録できない" do
-      @order_detail_address.phone_number = '000000000000'
-      @order_detail_address.valid?
-      expect(@order_detail_address.errors.full_messages).to include("Phone number is invalid")
      end
      it "post_codeは「3桁ハイフン4桁」の半角文字列以外では登録できない" do
       @order_detail_address.post_code = '0000000'
