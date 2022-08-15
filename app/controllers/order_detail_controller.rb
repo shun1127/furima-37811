@@ -1,5 +1,6 @@
 class OrderDetailController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!
+  before_action :non_purchased_item, only: [:index, :create]
 
   def index
     @order_detail_address = OrderDetailAddress.new
@@ -31,5 +32,10 @@ class OrderDetailController < ApplicationController
       card: order_detail_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def non_purchased_item
+    @item = Item.find(params[:item_id])
+    redirect_to root_path if current_user.id == @item.user_id || @item.order_detail.present?
   end
 end
