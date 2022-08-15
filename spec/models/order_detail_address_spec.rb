@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe OrderDetailAddress, type: :model do
   before do
-    @order_detail_address = FactoryBot.build(:order_detail_address)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @order_detail_address = FactoryBot.build(:order_detail_address, user_id: user.id,item_id: item.id)
+    sleep 0.1
   end
 
   describe "配送先情報の登録" do
@@ -13,6 +16,16 @@ RSpec.describe OrderDetailAddress, type: :model do
     end
 
     context '商品購入ができない時' do
+      it "user_idが空では購入できない" do
+        @order_detail_address.user_id = ''
+        @order_detail_address.valid?
+        expect(@order_detail_address.errors.full_messages).to include("User can't be blank")
+       end
+       it "item_idが空では購入できない" do
+        @order_detail_address.item_id = ''
+        @order_detail_address.valid?
+        expect(@order_detail_address.errors.full_messages).to include("Item can't be blank")
+       end
      it "post_codeが空では登録できない" do
       @order_detail_address.post_code = nil
       @order_detail_address.valid?
@@ -33,20 +46,30 @@ RSpec.describe OrderDetailAddress, type: :model do
       @order_detail_address.valid?
       expect(@order_detail_address.errors.full_messages).to include("Address one can't be blank")
      end
+     it "phone_numberが9桁以下では購入できない" do
+      @order_detail_address.phone_number = '123'
+      @order_detail_address.valid?
+      expect(@order_detail_address.errors.full_messages).to include("Phone number is invalid")
+     end
+     it "phone_numberが英数字以外が含まれている場合は購入できない" do
+      @order_detail_address.phone_number = 'a012'
+      @order_detail_address.valid?
+      expect(@order_detail_address.errors.full_messages).to include("Phone number is invalid")
+     end
      it "phone_numberが空では登録できない" do
       @order_detail_address.phone_number = ''
       @order_detail_address.valid?
       expect(@order_detail_address.errors.full_messages).to include("Phone number can't be blank")
      end
-     it "post_codeは「3桁ハイフン4桁」の半角文字列以外では登録できない" do
-      @order_detail_address.post_code = '0000000'
-      @order_detail_address.valid?
-      expect(@order_detail_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
-     end
      it "phone_numberは10桁以上11桁以内の半角数値以外では登録できない" do
       @order_detail_address.phone_number = '000000000000'
       @order_detail_address.valid?
       expect(@order_detail_address.errors.full_messages).to include("Phone number is invalid")
+     end
+     it "post_codeは「3桁ハイフン4桁」の半角文字列以外では登録できない" do
+      @order_detail_address.post_code = '0000000'
+      @order_detail_address.valid?
+      expect(@order_detail_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
      end
      it 'トークンが空だと保存できないこと' do
       @order_detail_address.token = nil
